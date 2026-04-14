@@ -26,7 +26,7 @@ export function ProfileAvatar({ alt, initials }: ProfileAvatarProps) {
   return (
     <div className="relative h-44 w-44 overflow-hidden rounded-2xl shadow-xl ring-4 ring-white/80 sm:h-48 sm:w-48">
       <Image
-        src="/profile.jpg"
+        src="/profile-photo.png"
         alt={alt}
         fill
         className="object-cover"

@@ -19,6 +19,7 @@ export const profile = {
     githubHref: "https://github.com/PinsaraKWeerasinghe",
     linkedin: "pinsaraw",
     linkedinHref: "https://www.linkedin.com/in/pinsaraw",
+    resumePdfHref: "/Resume/Resume_General_160670H.pdf",
   },
   education: [
     {

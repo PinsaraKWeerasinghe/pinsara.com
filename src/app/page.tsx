@@ -7,6 +7,7 @@ import { SkillCategory } from "@/components/SkillCategory";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { profile } from "@/data/profile";
+import { FileDown } from "lucide-react";
 
 export default function Home() {
   const { contact, education, skillCategories, experiences, extraCurricular, referees } = profile;
@@ -23,13 +24,6 @@ export default function Home() {
         <section className="relative mx-auto max-w-5xl px-4 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:grid lg:grid-cols-[minmax(0,220px),1fr] lg:gap-14 lg:pt-20">
           <div className="flex flex-col items-center lg:items-start">
             <ProfileAvatar alt={profile.name} initials="PW" />
-            <p className="mt-4 max-w-[12rem] text-center text-xs text-muted-foreground lg:text-left">
-              Add your photo as{" "}
-              <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[11px] text-foreground">
-                public/profile.jpg
-              </code>{" "}
-              — it will appear automatically.
-            </p>
           </div>
           <div className="mt-10 text-center lg:mt-0 lg:text-left">
             <p className="text-sm font-semibold uppercase tracking-wider text-accent">Software engineer</p>
@@ -43,6 +37,17 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
               <Button size="lg" className="rounded-xl px-6 shadow-md" asChild>
                 <a href={`mailto:${contact.email}`}>Email me</a>
+              </Button>
+              <Button variant="secondary" size="lg" className="rounded-xl px-6" asChild>
+                <a
+                  href={contact.resumePdfHref}
+                  download="Resume_General_160670H.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FileDown className="size-4" aria-hidden />
+                  Download resume
+                </a>
               </Button>
               <Button variant="outline" size="lg" className="rounded-xl px-6" asChild>
                 <a href={contact.githubHref} target="_blank" rel="noopener noreferrer">
