@@ -1,24 +1,21 @@
+"use client";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { navLinks } from "@/data/profile";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function SiteNav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-border/20 bg-background/60 backdrop-blur-md transition-all duration-300">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <Link
           href="#"
-          className="font-serif text-lg font-semibold tracking-tight text-primary transition-colors hover:text-accent"
+          className="font-heading text-lg font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:opacity-80 transition-opacity"
         >
           Pinsara Weerasinghe
         </Link>
-        <nav className="flex flex-wrap gap-1" aria-label="Page sections">
-          {navLinks.map((link) => (
-            <Button key={link.href} variant="ghost" size="sm" className="text-muted-foreground" asChild>
-              <a href={link.href}>{link.label}</a>
-            </Button>
-          ))}
-        </nav>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

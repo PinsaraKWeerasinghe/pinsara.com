@@ -1,13 +1,13 @@
 export const profile = {
-  name: "Pinsara K. Weerasinghe",
+  name: "Pinsara Weerasinghe",
   shortName: "Pinsara Weerasinghe",
-  title: "Software Engineer",
+  title: "Senior Software Engineer | Associate Technical Lead",
   subtitle:
-    "Computer Science & Engineering undergraduate · Full-stack, mobile & data-focused development",
+    "Building systems that scale — AWS, Serverless, high-throughput data & cloud architecture.",
   summary:
-    "I am a motivated software engineer with hands-on experience across web and mobile development, backend systems, and data-driven research. I enjoy building reliable products, collaborating in teams, and deepening my skills in software engineering and analytics.",
+    "Cloud Consultant and Senior Software Engineer with 5+ years delivering production-grade distributed systems for global enterprises. Led cloud data hub architecture at Serverless Guru for Air Canada. Engineered real-time market-price engines at GTN. Honors graduate in Computer Science & Engineering, University of Moratuwa. Now pursuing roles where technical depth drives product impact at scale.",
   about:
-    "I am an undergraduate in Computer Science and Engineering at the University of Moratuwa (Semester 7), with industry experience from internships at Global Market Technologies and Fcode Labs, ongoing research for my final-year project in ride-hailing analytics, and freelance delivery of mobile and web systems. I care about clear engineering, measurable quality, and software that stays maintainable as it grows.",
+    "I architect and ship systems that have to work — reliably, at scale, under pressure. My focus is serverless cloud engineering, high-throughput APIs, and data pipeline design on AWS. I have built the Air Canada Cloud Data Hub from the ground up using Lambda, Glue, and S3. I have engineered low-latency real-time price streams serving thousands of concurrent clients in global financial markets. I thrive in cross-functional remote teams, care deeply about maintainable architecture, and move fast without cutting corners that matter.",
   contact: {
     dob: "24 Mar 1995",
     phone: "+94 71 959 6692",
@@ -17,188 +17,137 @@ export const profile = {
     websiteHref: "https://pinsara.com",
     github: "PinsaraKWeerasinghe",
     githubHref: "https://github.com/PinsaraKWeerasinghe",
-    linkedin: "pinsaraw",
-    linkedinHref: "https://www.linkedin.com/in/pinsaraw",
+    linkedin: "pinsara",
+    linkedinHref: "https://www.linkedin.com/in/pinsara",
     resumePdfHref: "/Resume/Resume_General_160670H.pdf",
   },
   education: [
     {
       institution: "University of Moratuwa",
-      detail: "BSc (Hons) Computer Science and Engineering",
-      note: "Undergraduate — Semester 7",
+      detail: "BSc (Hons) in Computer Science and Engineering",
+      period: "09/2016 — Expected 03/2021",
+      note: "Graduated with Honors",
     },
     {
       institution: "Mo/Malwaththawala National School",
       period: "Jan 2001 — Aug 2014",
       detail:
         "Combined Mathematics (A), Physics (A), Chemistry (A). District rank 2 · Z-score 2.3135",
+      note: "AAA | Z-Score: 2.3135 | District Rank: 2",
     },
   ],
   skillCategories: [
     {
-      title: "Technical fields",
+      title: "Technical Fields",
       items: [
-        "Mobile development",
-        "OOP",
-        "Web development",
-        "Data mining",
-        "Machine learning",
+        "Serverless Architecture",
+        "Microservices",
+        "Data Pipelines",
+        "API Dissemination",
+        "Cloud Engineering",
+        "Performance Testing",
       ],
     },
     {
-      title: "Languages & databases",
+      title: "Languages",
       items: [
-        "Java",
+        "TypeScript",
+        "JavaScript",
         "Python",
+        "Java",
         "Dart",
-        "Android",
-        "HTML",
         "PHP",
-        "Firebase",
-        "MySQL",
+        "SQL",
       ],
     },
     {
-      title: "Tools, APIs & frameworks",
+      title: "Cloud & Databases",
       items: [
-        "Git",
-        "Maven",
-        "JMeter",
-        "Solr",
-        "Flutter",
-        "Spring Boot",
-        "Flask",
-        "Spark",
+        "AWS (Lambda, S3, Glue, EC2)",
+        "Serverless Framework",
+        "DynamoDB",
+        "MySQL",
+        "PostgreSQL",
+        "MongoDB",
+        "Firebase",
       ],
     },
-  ],
-  extraCurricular: [
     {
-      title: "“Decrypt” 2018 (CSE Open Day)",
-      org: "University of Moratuwa",
-      detail: "Member of the organizing committee for the CSE Open Day.",
-    },
-    {
-      title: "Literature association",
-      org: "University of Moratuwa",
-      detail:
-        "Member of the organizing committee for “Dedunu Ganthota” by the Literature association.",
-    },
-    {
-      title: "School prefect — 2011",
-      org: "Mo/Malwaththawala National School",
-      detail: "Member of the school prefect board.",
-    },
-  ],
-  referees: [
-    {
-      name: "Dr. Amal Shehan Perera",
-      role: "Senior Lecturer, Department of Computer Science and Engineering",
-      org: "University of Moratuwa, Sri Lanka",
-      email: "shehan@cse.mrt.ac.lk",
-      href: "mailto:shehan@cse.mrt.ac.lk",
-    },
-    {
-      name: "Mr. Gayanath Senanayake",
-      role: "Head of Market Data Services",
-      org: "Global Market Technologies (Pvt) Ltd, Colombo 08, Sri Lanka",
-      email: "s.gayanath@theglobalmarketaccess.com",
-      href: "mailto:s.gayanath@theglobalmarketaccess.com",
+      title: "Frameworks & Tools",
+      items: [
+        "React",
+        "Node.js",
+        "Express",
+        "NestJS",
+        "Flutter",
+        "Apache Spark",
+        "Git",
+        "CI/CD (Bitbucket Pipelines, Bamboo)",
+        "JMeter / TestLink",
+      ],
     },
   ],
   experiences: [
     {
-      role: "Final year project",
-      period: "Apr 2020 — Present",
-      title:
-        "Data-driven individual taxi driver QoS analysis & evaluation in ride-hailing services",
-      description:
-        "Exploratory research for data-driven evaluation of individual taxi drivers in ride-hailing services. Evaluating quality of service individually and ranking drivers using scores derived from quality measurements.",
-      stack: ["Spark", "Data analytics", "NLP"],
-    },
-    {
-      role: "Internship",
-      company: "Global Market Technologies (Pvt) Ltd",
-      period: "Jun 2019 — Dec 2019",
+      role: "Cloud Consultant / Developer",
+      company: "Serverless Guru",
+      period: "02/2023 — Present",
       projects: [
         {
-          title: "Search services system (Apache Solr)",
+          title: "Air Canada Cloud Data Hub",
           description:
-            "Built a fast search system using Apache Solr to reduce database retrieval cost, with REST APIs for upload and retrieval. Optimized performance using load tests.",
-          stack: ["Solr", "Spring Boot", "Java", "Maven", "JMeter"],
-        },
-        {
-          title: "Alert generation system",
-          description:
-            "Implemented backend alert generation for an existing product: reminder emails for user-subscribed events according to their criteria.",
-          stack: ["Java", "Maven"],
-        },
-        {
-          title: "Log reading tool",
-          description:
-            "Built a tool to extract readable reports from filtered, encoded log files for analysis and issue detection.",
-          stack: ["Java", "Maven"],
-        },
-        {
-          title: "Feed comparison tool",
-          description:
-            "Extended an existing feed comparison tool to additional message types used in the system.",
-          stack: ["Java", "Maven"],
-        },
-        {
-          title: "Data validation plugin",
-          description:
-            "Implemented a plugin to detect abnormal behaviour in data streams by consuming from the main source and validating using existing techniques.",
-          stack: ["Java", "Maven"],
+            "Architected and built scalable microservices and an enterprise-grade cloud Data Hub for Air Canada, leveraging the Serverless Framework to optimize data processing and operational efficiency. Designed, implemented, and optimized distributed data integration workflows using AWS Glue, Lambda, and Amazon S3, managing high-volume data streams.",
+          stack: ["AWS Lambda", "AWS Glue", "Amazon S3", "Serverless Framework", "MySQL"],
         },
       ],
     },
     {
-      role: "Internship",
-      company: "Fcode Labs (Pvt) Ltd",
-      period: "Mar 2020 — Jul 2020",
+      role: "Software Engineer",
+      company: "Global Market Technologies (Pvt) Ltd. (GTN)",
+      period: "04/2021 — 02/2023",
       projects: [
         {
-          title: "Alt+it — process automation for MAS Holdings",
+          title: "Real-time Exchange Market-Price Engine",
           description:
-            "Mobile app automating quality-evaluation sessions: scheduling, measurements, comments, recording, photo upload, and related workflows.",
-          stack: ["Flutter", "Dart", "Firebase"],
+            "Engineered core market-price backend components responsible for the real-time and backlog extraction of high-frequency market data from global stock exchanges. Designed data dissemination modules delivering low-latency streams securely to thousands of concurrent enterprise clients. Integrated automated testing and deployment flows using Bitbucket, Bamboo, and TestLink.",
+          stack: ["Java", "Bitbucket", "Bamboo", "TestLink", "Low-latency API"],
         },
       ],
     },
     {
-      role: "Semester projects",
-      period: "Jun 2017 — Present",
+      role: "Intern Software Engineer",
+      company: "Mubasher Technologies (Pvt) Ltd.",
+      period: "06/2019 — 12/2019",
       projects: [
         {
-          title: "Train Track",
+          title: "Log Analysis & Load Testing Tools",
           description:
-            "Android app with a Python backend and Firebase; shows train locations using GPS contributions from users.",
+            "Developed a specialized component log analysis and anomaly behavior detection tool, reducing production issue troubleshooting times for backend price teams. Executed rigorous stress and load testing on core financial data modules to identify throughput bottlenecks and ensure platform stability under heavy market traffic.",
+          stack: ["Java", "JMeter", "Multithreading", "Log analysis"],
+        },
+      ],
+    },
+    {
+      role: "Projects & Academic Research",
+      period: "Jan 2018 — Present",
+      projects: [
+        {
+          title: "Data-Driven Taxi Driver QoS Evaluation",
+          description:
+            "Built an analytical framework using NLP and Apache Spark to calculate real-time quality-of-service scores and performance rankings for individual drivers in ride-hailing platforms.",
+          stack: ["Apache Spark", "NLP", "Python", "Data analytics"],
+        },
+        {
+          title: "Train Track Tracker",
+          description:
+            "Created a crowd-sourced train tracking Android application backed by a Python server and Firebase, utilizing user-permissioned GPS metrics to accurately display live transit routes.",
           stack: ["Android", "Java", "Python", "Firebase"],
         },
         {
-          title: "E-commerce platform",
+          title: "Alt+it Automation System",
           description:
-            "Single-vendor e-commerce platform with core storefront features; strong focus on database design across front-end and back-end.",
-          stack: ["MySQL", "Node.js", "HTML"],
-        },
-        {
-          title: "SEA system",
-          description:
-            "Online system for student and examination administration: exam registration, assignments, and related workflows with full stack implementation.",
-          stack: ["HTML", "PHP", "MySQL"],
-        },
-      ],
-    },
-    {
-      role: "Freelance",
-      period: "Jan 2019 — Present",
-      projects: [
-        {
-          title: "Electricity breakdown reporting system",
-          description:
-            "Android app and web portal to report breakdowns with location, comments, and photos; authorities can triage and assign work to maintenance staff.",
-          stack: ["Android", "PHP", "MySQL"],
+            "Developed a cross-platform mobile application using Flutter and Dart that automated scheduling, quality measurements, and data logging for garment evaluation sessions.",
+          stack: ["Flutter", "Dart", "Firebase"],
         },
       ],
     },
@@ -210,7 +159,5 @@ export const navLinks = [
   { href: "#experience", label: "Experience" },
   { href: "#education", label: "Education" },
   { href: "#skills", label: "Skills" },
-  { href: "#extra", label: "Activities" },
-  { href: "#referees", label: "Referees" },
   { href: "#contact", label: "Contact" },
 ] as const;
