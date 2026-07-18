@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ContactItem } from "@/components/ContactItem";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { ProfileAvatar } from "@/components/ProfileAvatar";
 import { SiteNav } from "@/components/SiteNav";
 import { SkillCategory } from "@/components/SkillCategory";
+import { SectionTitle } from "@/components/SectionTitle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { profile, navLinks } from "@/data/profile";
+import { profile } from "@/data/profile";
 import { FileDown } from "lucide-react";
 
 const GithubIcon = (props: React.ComponentProps<"svg">) => (
@@ -17,10 +18,31 @@ const GithubIcon = (props: React.ComponentProps<"svg">) => (
   </svg>
 );
 
-
 export default function Home() {
   const { contact, education, skillCategories, experiences } = profile;
   const [activeSection, setActiveSection] = useState("about");
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const avatarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!avatarRef.current) return;
+      const rect = avatarRef.current.getBoundingClientRect();
+      const navbarHeight = 54; // SiteNav height
+      
+      const triggerStart = navbarHeight;
+      const progress = (triggerStart - rect.top) / rect.height;
+      const clampedProgress = Math.max(0, Math.min(1, progress));
+      setScrollProgress(clampedProgress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id], div[id='contact']");
@@ -59,95 +81,76 @@ export default function Home() {
         aria-hidden 
       />
 
-      <SiteNav />
+      <SiteNav activeSection={activeSection} scrollProgress={scrollProgress} />
 
-      <div className="mx-auto max-w-6xl px-6 py-12 lg:py-24">
-        <div className="lg:flex lg:justify-between lg:gap-16">
-          
-          {/* Sticky Left Column */}
-          <header className="lg:sticky lg:top-28 lg:flex lg:h-[calc(100vh-200px)] lg:w-1/2 lg:flex-col lg:justify-between lg:py-4">
-            <div>
-              <div className="flex items-center gap-4 lg:flex-col lg:items-start">
-                <ProfileAvatar alt={profile.name} initials="PW" />
-                <div className="mt-2">
-                  <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
-                    {profile.name}
-                  </h1>
-                  <h2 className="mt-2 text-sm font-medium tracking-wide text-foreground/55 sm:text-base">
-                    {profile.title}
-                  </h2>
-                </div>
-              </div>
-              
-              <p className="mt-5 text-sm text-foreground/50 leading-relaxed max-w-sm font-medium tracking-wide">
-                {profile.subtitle}
-              </p>
+      {/* Full-viewport Hero Intro */}
+      <div className="flex min-h-[calc(100vh-64px)] flex-col justify-center items-center w-full relative">
+        {/* Top: Avatar resting directly on the line */}
+        <div ref={avatarRef} className="w-full flex justify-center relative pb-[1px]">
+          <ProfileAvatar alt={profile.name} initials="PW" />
+          {/* Full-width screen horizontal line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+        </div>
 
-              {/* Resume download + GitHub link (Above menu) */}
-              <div className="mt-6 flex flex-col gap-3">
-                <Button size="sm" className="w-fit rounded-xl px-5 shadow-md font-semibold" asChild>
-                  <a href={contact.resumePdfHref} download target="_blank" rel="noreferrer">
-                    <FileDown className="size-3.5 mr-2" />
-                    Download Resume
-                  </a>
-                </Button>
-                <a
-                  href={contact.githubHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-medium text-foreground/45 hover:text-foreground/80 transition-colors"
-                  aria-label="GitHub"
-                >
-                  <GithubIcon className="size-3.5" />
-                  github.com/{contact.github}
-                </a>
-              </div>
+        {/* Bottom: Info content below the line */}
+        <header className="flex flex-col items-center text-center pt-8 pb-12 px-6 max-w-2xl">
+          <h1 className="mt-4 pb-2 text-4xl font-extrabold tracking-tight sm:text-6xl text-foreground font-sans">
+            {profile.name}
+          </h1>
+          <h2 className="mt-3 text-sm font-semibold tracking-wide text-foreground/55 sm:text-base max-w-md">
+            {profile.title}
+          </h2>
+          <p className="mt-4 text-xs sm:text-sm text-foreground/50 leading-relaxed max-w-lg font-medium tracking-wide">
+            {profile.subtitle}
+          </p>
 
-              {/* Scrollspy Desktop Navigation */}
-              <nav className="mt-10 hidden lg:block" aria-label="Page sections">
-                <ul className="space-y-2">
-                  {navLinks.map((link) => (
-                    <li key={link.href}>
-                      <a
-                        href={link.href}
-                        className={`nav-link-item ${
-                          activeSection === link.href.substring(1) ? "active" : ""
-                        }`}
-                      >
-                        <span className="nav-indicator-line" />
-                        <span>{link.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          </header>
+          {/* Resume download + GitHub link */}
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <Button className="w-fit h-12 rounded-xl px-8 shadow-md font-semibold text-sm" asChild>
+              <a href={contact.resumePdfHref} download target="_blank" rel="noreferrer">
+                <FileDown className="size-4 mr-2" />
+                Download Resume
+              </a>
+            </Button>
+            <a
+              href={contact.githubHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-medium text-foreground/45 hover:text-foreground/80 transition-colors"
+              aria-label="GitHub"
+            >
+              <GithubIcon className="size-3.5" />
+              github.com/{contact.github}
+            </a>
+          </div>
+        </header>
+      </div>
 
-          {/* Scrollable Right Column */}
-          <main className="mt-16 lg:mt-4 lg:w-1/2 lg:py-4 space-y-24">
-            
-            {/* About Section */}
-            <section id="about" className="scroll-mt-28" aria-label="About me">
+      {/* Scrollable sections container */}
+      <div className="mx-auto max-w-3xl px-6 pb-24 space-y-24">
+
+        {/* About Section */}
+        <section id="about" className="scroll-mt-28 space-y-6" aria-label="About me">
+          <SectionTitle id="about-title">About</SectionTitle>
+          <Card className="glow-card glassmorphism border-none shadow-sm">
+            <CardContent className="p-6 sm:p-8 md:p-10">
               <p className="text-sm md:text-base leading-relaxed text-foreground/65 font-normal">
                 Result-driven Senior Software Engineer and Cloud Consultant with over 5 years of post-graduation experience designing high-throughput data pipelines, microservices, and serverless architectures for global enterprises, including Air Canada. Graduated with Honors from the University of Moratuwa with a deep foundation in computer science and system engineering. Proven track record of operating independently in distributed, cross-functional remote teams and ready to step into high-impact technical ownership and leadership roles.
               </p>
-            </section>
+            </CardContent>
+          </Card>
+        </section>
 
-            {/* Experience & Projects Section */}
-            <section id="experience" className="scroll-mt-28" aria-labelledby="experience-heading">
-              <h3 id="experience-heading" className="text-xs font-bold uppercase tracking-wider text-accent mb-6 lg:hidden">
-                Experience
-              </h3>
-              <div className="relative border-l border-border/40 pl-6 ml-2 space-y-8">
+        {/* Experience & Projects Section */}
+        <section id="experience" className="scroll-mt-28 space-y-6" aria-labelledby="experience-heading">
+          <SectionTitle id="experience-heading">Experience</SectionTitle>
+          <Card className="glow-card glassmorphism border-none shadow-sm">
+            <CardContent className="p-6 sm:p-8 md:p-10">
+              <div className="space-y-8">
                 {experiences.map((exp) => {
                   const key = "company" in exp ? exp.company : exp.role;
                   return (
-                    <div key={key} className="relative work-timeline-item group">
-                      {/* Timeline elements */}
-                      <div className="work-timeline-dot" />
-                      <div className="work-timeline-line" />
-                      
+                    <div key={key} className="relative group">
                       <ExperienceCard
                         role={exp.role}
                         company={"company" in exp ? exp.company : undefined}
@@ -158,76 +161,71 @@ export default function Home() {
                   );
                 })}
               </div>
-            </section>
+            </CardContent>
+          </Card>
+        </section>
 
-            {/* Education Section */}
-            <section id="education" className="scroll-mt-28" aria-labelledby="education-heading">
-              <h3 id="education-heading" className="text-xs font-bold uppercase tracking-wider text-accent mb-6 lg:hidden">
-                Education
-              </h3>
-              <div className="space-y-6">
-                {education.map((edu) => (
-                  <Card key={edu.institution} className="glow-card glassmorphism border-none shadow-sm">
-                    <CardHeader className="pb-3">
-                      <div className="flex justify-between items-start gap-4">
-                        <CardTitle className="text-base font-bold text-primary">{edu.institution}</CardTitle>
-                        <span className="text-[10px] font-semibold text-muted-foreground whitespace-nowrap">
-                          {edu.period || "09/2016 — 03/2021"}
-                        </span>
-                      </div>
-                      <CardDescription className="text-sm font-medium text-foreground/95 mt-1">
-                        {edu.detail}
-                      </CardDescription>
-                      {edu.note && (
-                        <p className="pt-2 text-[11px] font-semibold text-accent uppercase tracking-wider">
-                          {edu.note}
-                        </p>
-                      )}
-                    </CardHeader>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* Skills Section */}
-            <section id="skills" className="scroll-mt-28" aria-labelledby="skills-heading">
-              <h3 id="skills-heading" className="text-xs font-bold uppercase tracking-wider text-accent mb-6 lg:hidden">
-                Skills
-              </h3>
-              <Card className="glow-card glassmorphism border-none shadow-sm">
-                <CardContent className="pt-6 space-y-6">
-                  {skillCategories.map((cat) => (
-                    <SkillCategory key={cat.title} title={cat.title} items={cat.items} />
-                  ))}
-                </CardContent>
+        {/* Education Section */}
+        <section id="education" className="scroll-mt-28 space-y-6" aria-labelledby="education-heading">
+          <SectionTitle id="education-heading">Education</SectionTitle>
+          <div className="space-y-6">
+            {education.map((edu) => (
+              <Card key={edu.institution} className="glow-card glassmorphism border-none shadow-sm">
+                <CardHeader className="p-6 sm:p-8 md:p-10">
+                  <div className="flex justify-between items-start gap-4">
+                    <CardTitle className="text-base font-bold text-primary">{edu.institution}</CardTitle>
+                    <span className="text-[10px] font-semibold text-muted-foreground whitespace-nowrap">
+                      {edu.period || "09/2016 — 03/2021"}
+                    </span>
+                  </div>
+                  <CardDescription className="text-sm font-medium text-foreground/95 mt-1">
+                    {edu.detail}
+                  </CardDescription>
+                  {edu.note && (
+                    <p className="pt-2 text-[11px] font-semibold text-accent uppercase tracking-wider">
+                      {edu.note}
+                    </p>
+                  )}
+                </CardHeader>
               </Card>
-            </section>
+            ))}
+          </div>
+        </section>
 
-            {/* Contact Bento Card */}
-            <div
-              id="contact"
-              className="scroll-mt-28 glow-card border-none bg-gradient-to-br from-primary via-primary/95 to-accent text-primary-foreground shadow-2xl relative overflow-hidden rounded-2xl p-6"
-            >
-              <div className="absolute right-0 bottom-0 h-36 w-36 rounded-full bg-white/5 blur-2xl pointer-events-none" />
-              <h4 className="text-lg font-bold text-white mb-2">Let&apos;s Work Together</h4>
-              <p className="text-xs text-white/80 leading-relaxed mb-6">
+        {/* Skills Section */}
+        <section id="skills" className="scroll-mt-28 space-y-6" aria-labelledby="skills-heading">
+          <SectionTitle id="skills-heading">Skills</SectionTitle>
+          <Card className="glow-card glassmorphism border-none shadow-sm">
+            <CardContent className="p-6 sm:p-8 md:p-10 space-y-8">
+              {skillCategories.map((cat) => (
+                <SkillCategory key={cat.title} title={cat.title} items={cat.items} />
+              ))}
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="scroll-mt-28 space-y-6" aria-labelledby="contact-heading">
+          <SectionTitle id="contact-heading">Contact</SectionTitle>
+          <Card className="glow-card glassmorphism border-none shadow-sm">
+            <CardContent className="p-6 sm:p-8 md:p-10">
+              <p className="text-sm leading-relaxed text-foreground/65 mb-6">
                 I am open to senior roles, consulting opportunities, and systems collaboration. Contact me via:
               </p>
-              <nav className="grid grid-cols-1 sm:grid-cols-2 gap-2" aria-label="Contact information">
-                <ContactItem inverse icon="mail" label="Email" value={contact.email} href={`mailto:${contact.email}`} />
-                <ContactItem inverse icon="phone" label="Phone" value={contact.phone} href={contact.phoneHref} />
-                <ContactItem inverse icon="globe" label="Location" value="Colombo, Sri Lanka" />
-                <ContactItem inverse icon="linkedin" label="LinkedIn" value={`/in/${contact.linkedin}`} href={contact.linkedinHref} />
+              <nav className="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Contact information">
+                <ContactItem icon="mail" label="Email" value={contact.email} href={`mailto:${contact.email}`} />
+                <ContactItem icon="phone" label="Phone" value={contact.phone} href={contact.phoneHref} />
+                <ContactItem icon="globe" label="Location" value="Colombo, Sri Lanka" />
+                <ContactItem icon="linkedin" label="LinkedIn" value={`/in/${contact.linkedin}`} href={contact.linkedinHref} />
               </nav>
-            </div>
+            </CardContent>
+          </Card>
+        </section>
 
-            <footer className="pt-8 text-center lg:text-left text-[11px] text-muted-foreground/70">
-              <p>© {new Date().getFullYear()} Pinsara Weerasinghe. Built with Next.js, Shadcn & Tailwind.</p>
-            </footer>
+        <footer className="pt-8 text-center text-[11px] text-muted-foreground/70">
+          <p>© {new Date().getFullYear()} Pinsara Weerasinghe.</p>
+        </footer>
 
-          </main>
-
-        </div>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export function ProfileAvatar({ alt, initials }: ProfileAvatarProps) {
       <div
         role="img"
         aria-label={alt}
-        className="flex h-44 w-44 items-center justify-center rounded-2xl bg-gradient-to-br from-primary via-accent to-primary text-4xl font-heading font-semibold tracking-tight text-white shadow-xl ring-4 ring-card hover:scale-105 transition-all duration-300 sm:h-48 sm:w-48"
+        className="flex h-56 w-56 items-center justify-center rounded-2xl bg-gradient-to-br from-primary via-accent to-primary text-4xl font-heading font-semibold tracking-tight text-white shadow-xl ring-4 ring-card hover:scale-105 transition-all duration-300 sm:h-64 sm:w-64"
       >
         {initials}
       </div>
@@ -24,14 +24,14 @@ export function ProfileAvatar({ alt, initials }: ProfileAvatarProps) {
   }
 
   return (
-    <div className="relative h-44 w-44 overflow-hidden rounded-2xl shadow-2xl ring-4 ring-card transition-all duration-500 hover:scale-105 hover:rotate-1 hover:shadow-primary/30 sm:h-48 sm:w-48">
+    <div className="relative h-56 w-56 transition-all duration-500 hover:scale-105 sm:h-64 sm:w-64">
       <Image
         src="/profile-photo.png"
         alt={alt}
         fill
         className="object-cover"
         priority
-        sizes="(max-width: 640px) 176px, 192px"
+        sizes="(max-width: 640px) 224px, 256px"
         onError={() => setUsePlaceholder(true)}
       />
     </div>
