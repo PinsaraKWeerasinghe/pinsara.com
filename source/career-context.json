@@ -1,0 +1,162 @@
+{
+    "developer": {
+        "fullName": "Pinsara Weerasinghe",
+        "title": "Senior Software Engineer / Cloud Consultant",
+        "bio": "Specializing in AWS Serverless Architecture, Microservices, and High-Throughput Data Systems.",
+        "about": "As an Honors Computer Science & Engineering graduate from the University of Moratuwa, I bring over 5.5 years of rigorous analytical training and enterprise-scale execution to building high-throughput cloud architectures. I have built a career on technical adaptability, successfully pivoting from 2 years of developing low-latency market data backend infrastructure using Java, Spring Boot, and Solr at GTN, to 3.5 years of deep cloud engineering architecting serverless microservices and complex data hubs on AWS for global enterprises like Air Canada. Now, I am looking to scale my technical impact, drive architectural strategy, and take on end-to-end technical ownership as an Associate Technical Lead.",
+        "targetRoles": [
+            "Associate Technical Lead",
+            "Software Engineer III",
+            "Senior Cloud Consultant"
+        ],
+        "location": "Colombo, Sri Lanka",
+        "education": {
+            "institution": "University of Moratuwa",
+            "degree": "B.Sc. (Hons) in Computer Science and Engineering",
+            "period": "09/2016 – 03/2021",
+            "school": "Mo/Malwaththawala National School",
+            "alResults": "G.C.E. A/L Physical Science - AAA (Z-Score: 2.3135, District Rank: 2)"
+        },
+        "links": {
+            "portfolio": "https://pinsara.com",
+            "github": "https://github.com/kaushalpkw",
+            "linkedin": "https://linkedin.com/in/pinsara"
+        }
+    },
+    "technicalProficiency": {
+        "coreLanguages": [
+            "TypeScript",
+            "JavaScript",
+            "Node.js",
+            "Java",
+            "Python",
+            "SQL",
+            "Dart"
+        ],
+        "cloudAndServerless": [
+            "AWS Lambda",
+            "AWS Glue",
+            "Amazon S3",
+            "Amazon DynamoDB",
+            "Amazon OpenSearch",
+            "Amazon CloudWatch",
+            "AWS SQS",
+            "AWS SNS",
+            "Serverless Framework"
+        ],
+        "frameworks": [
+            "Express.js",
+            "NestJS",
+            "Spring Boot",
+            "React",
+            "Next.js",
+            "Apache Solr",
+            "Flutter"
+        ],
+        "databasesAndStreaming": [
+            "PostgreSQL",
+            "MySQL",
+            "Amazon DynamoDB",
+            "Apache Kafka",
+            "Firebase"
+        ],
+        "devopsAndTools": [
+            "Git",
+            "Docker",
+            "Bitbucket",
+            "Bamboo",
+            "Litestream"
+        ]
+    },
+    "workExperience": [
+        {
+            "company": "Serverless Guru",
+            "role": "Senior Software Engineer / Cloud Consultant",
+            "period": "02/2023 – Present",
+            "type": "Remote / Full-time",
+            "clientProject": "Air Canada Cloud Data Hub & Microservices",
+            "keyHighlights": [
+                "Architected scalable serverless microservices and an enterprise cloud Data Hub for Air Canada using Serverless Framework, Node.js, and AWS Lambda.",
+                "Engineered real-time event ingestion data pipelines integrating Apache Kafka topics and AWS Glue ETL jobs into Amazon S3.",
+                "Managed search indexing and analytical querying patterns via Amazon OpenSearch Service.",
+                "Led enterprise database migration from MySQL to PostgreSQL maintaining strict transactional integrity and zero downtime.",
+                "Constructed CloudWatch monitoring dashboards and automated anomaly alarms, optimizing operational cloud costs.",
+                "Implemented GraphQL API bridges unifying external enterprise storage like SharePoint."
+            ]
+        },
+        {
+            "company": "GTN Technologies (Global Market Technologies)",
+            "role": "Software Engineer",
+            "period": "04/2021 – 02/2023",
+            "location": "Colombo, Sri Lanka",
+            "keyHighlights": [
+                "Engineered market-price backend components for real-time and backlog extraction of high-frequency stock exchange data.",
+                "Designed data dissemination backend engines using Java, Spring Boot, WebSockets, and TCP Sockets serving thousands of concurrent enterprise clients.",
+                "Optimized text-search indexing speeds across database nodes by architecting wrappers around Apache Solr instances.",
+                "Built asynchronous decoupled message queues utilizing Apache Kafka, AWS SQS, and AWS SNS.",
+                "Integrated CI/CD delivery pipelines using Bitbucket, Bamboo, and Litestream."
+            ]
+        },
+        {
+            "company": "GTN Technologies / Mubasher Technologies",
+            "role": "Intern Software Engineer",
+            "period": "06/2019 – 12/2019",
+            "location": "Colombo, Sri Lanka",
+            "keyHighlights": [
+                "Engineered custom log analysis tools and anomaly detection utilities for financial price backend modules.",
+                "Executed load and stress testing across high-frequency backend financial data pipelines to protect platform stability under peak traffic."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "Meridiano Ceylon",
+            "role": "Full-Stack Creator & Architect",
+            "url": "https://www.meridianoceylon.com/",
+            "stack": [
+                "Next.js",
+                "React",
+                "TypeScript",
+                "Firebase",
+                "Tailwind CSS"
+            ],
+            "summary": "Full-stack production travel booking platform built with Next.js and Firebase featuring dynamic tour package management, real-time booking enquiries, user authentication, and secure media storage."
+        },
+        {
+            "name": "MAS Holdings Quality Process Automation & Smart Fashion App",
+            "context": "Fcode Labs Partnership",
+            "stack": [
+                "Flutter",
+                "Dart",
+                "Firebase"
+            ],
+            "summary": "Engineered a cross-platform Flutter/Dart app with Firebase backend to digitize garment evaluation workflows while introducing a smart fashion feature for side-by-side apparel comparison."
+        },
+        {
+            "name": "Taxi Driver QoS Analysis & Ranking Platform",
+            "context": "University of Moratuwa Final Year Research Project",
+            "stack": [
+                "Apache Spark",
+                "NLP",
+                "Python",
+                "Machine Learning",
+                "Data Analytics"
+            ],
+            "summary": "Developed an ML analytics framework using NLP and Apache Spark to evaluate individual taxi driver Quality-of-Service (QoS) and compute real-time dynamic rankings from telemetry and customer feedback datasets."
+        }
+    ],
+    "leadershipAndVolunteering": [
+        {
+            "event": "Decrypt 2018 (CSE Open Day)",
+            "organization": "Department of Computer Science & Engineering, University of Moratuwa",
+            "role": "Organizing Committee Member",
+            "details": "Coordinated event logistics, technical department showcases, and visitor engagement for the flagship CSE exhibition."
+        },
+        {
+            "event": "Dedunu Ganthota",
+            "organization": "Literature Association, University of Moratuwa",
+            "role": "Organizing Committee Member",
+            "details": "Contributed to event planning, cultural program coordination, and community execution."
+        }
+    ]
+}
