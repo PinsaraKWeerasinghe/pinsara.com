@@ -37,14 +37,6 @@ export default function Home() {
     setIsModalOpen(true);
   };
 
-  const openProjectById = (id: string) => {
-    const found = featuredProjects.find((p) => p.id === id);
-    if (found) {
-      setSelectedProject(found);
-      setIsModalOpen(true);
-    }
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       if (!avatarRef.current) return;
@@ -195,7 +187,6 @@ export default function Home() {
           <SectionTitle id="experience-heading">Experience</SectionTitle>
           <ExperienceTimeline
             experiences={workExperiences}
-            onOpenProjectDetail={openProjectById}
           />
         </section>
 

@@ -16,15 +16,13 @@ import {
 
 interface ExperienceTimelineProps {
   experiences: WorkExperience[];
-  onOpenProjectDetail?: (projectId: string) => void;
 }
 
 export function ExperienceTimeline({
   experiences,
-  onOpenProjectDetail,
 }: ExperienceTimelineProps) {
   // Track expanded state for each experience item (by index)
-  const [expandedIndices, setExpandedIndices] = useState<number[]>([0]);
+  const [expandedIndices, setExpandedIndices] = useState<number[]>([0, 1, 2]);
 
   const toggleExpand = (index: number) => {
     setExpandedIndices((prev) =>
@@ -130,14 +128,6 @@ export function ExperienceTimeline({
                   <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-bold">
                     <Sparkles className="size-3.5" />
                     <span>Client Project: {exp.clientProject}</span>
-                    {onOpenProjectDetail && (
-                      <button
-                        onClick={() => onOpenProjectDetail("air-canada-data-hub")}
-                        className="ml-2 underline text-[11px] text-sky-300 hover:text-sky-100"
-                      >
-                        View Deep Dive
-                      </button>
-                    )}
                   </div>
                 )}
 

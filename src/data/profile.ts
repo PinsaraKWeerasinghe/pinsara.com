@@ -50,9 +50,9 @@ export const profile = {
   subtitle:
     "Specializing in AWS Serverless Architecture, Microservices, and High-Throughput Data Systems.",
   summary:
-    "As an Honors Computer Science & Engineering graduate from the University of Moratuwa, I bring over 5.5 years of rigorous analytical training and enterprise-scale execution to building high-throughput cloud architectures. I have built a career on technical adaptability, successfully pivoting from 2 years of developing low-latency market data backend infrastructure using Java, Spring Boot, and Solr at GTN, to 3.5 years of deep cloud engineering architecting serverless microservices and complex data hubs on AWS for global enterprises like Air Canada. Now, I am looking to scale my technical impact, drive architectural strategy, and take on end-to-end technical ownership as an Associate Technical Lead.",
+    "University of Moratuwa Computer Science and Engineering Honors graduate with 6 years of experience architecting high-performance backend systems across the Fintech and Aviation domains. Spent 2.5 years in Fintech delivering low-latency Java and Spring Boot backend infrastructure to optimize transactional data processing. Advanced into Aviation tech for 3.5 years, designing cloud-native microservices and enterprise data hubs on AWS utilizing the Serverless Framework and AWS CDK. Combines deep server-side logic mastery with automated cloud provisioning to deliver fault-tolerant, high-throughput microservice architectures. Seeking to leverage scalable system design and cloud engineering expertise as a Senior Backend Engineer.",
   about:
-    "As an Honors Computer Science & Engineering graduate from the University of Moratuwa, I bring over 5.5 years of rigorous analytical training and enterprise-scale execution to building high-throughput cloud architectures. I have built a career on technical adaptability, successfully pivoting from 2 years of developing low-latency market data backend infrastructure using Java, Spring Boot, and Solr at GTN, to 3.5 years of deep cloud engineering architecting serverless microservices and complex data hubs on AWS for global enterprises like Air Canada. Now, I am looking to scale my technical impact, drive architectural strategy, and take on end-to-end technical ownership as an Associate Technical Lead.",
+    "University of Moratuwa Computer Science and Engineering Honors graduate with 6 years of experience architecting high-performance backend systems across the Fintech and Aviation domains. Spent 2.5 years in Fintech delivering low-latency Java and Spring Boot backend infrastructure to optimize transactional data processing. Advanced into Aviation tech for 3.5 years, designing cloud-native microservices and enterprise data hubs on AWS utilizing the Serverless Framework and AWS CDK. Combines deep server-side logic mastery with automated cloud provisioning to deliver fault-tolerant, high-throughput microservice architectures. Seeking to leverage scalable system design and cloud engineering expertise as a Senior Backend Engineer.",
   contact: {
     email: "pinsarakweerasinghe@gmail.com",
     phone: "+94 71 959 6692",
@@ -129,16 +129,16 @@ export const profile = {
     {
       company: "Serverless Guru",
       role: "Senior Software Engineer / Cloud Consultant",
-      period: "02/2023 – Present",
+      period: "02/2023 - Present",
       type: "Remote / Full-time",
       clientProject: "Air Canada Cloud Data Hub & Microservices",
       keyHighlights: [
-        "Architected scalable serverless microservices and an enterprise cloud Data Hub for Air Canada using Serverless Framework, Node.js, and AWS Lambda.",
-        "Engineered real-time event ingestion data pipelines integrating Apache Kafka topics and AWS Glue ETL jobs into Amazon S3.",
-        "Managed search indexing and analytical querying patterns via Amazon OpenSearch Service.",
-        "Led enterprise database migration from MySQL to PostgreSQL maintaining strict transactional integrity and zero downtime.",
-        "Constructed CloudWatch monitoring dashboards and automated anomaly alarms, optimizing operational cloud costs.",
-        "Implemented GraphQL API bridges unifying external enterprise storage like SharePoint.",
+        "Architected a reusable Python utility library for AWS Glue ETL jobs, optimizing data transformation workflows and reducing AWS cloud compute costs by 20%.",
+        "Engineered a cost-effective CloudWatch alarm triggering mechanism utilizing log metric filters, streamlining automated alerting and reducing CloudWatch expenditure by 2%.",
+        "Engineered a real-time event persistence engine using Kafka Connect and AWS Athena, enabling instant event debugging, rapid failure recovery, and significantly enhancing overall system availability and fault tolerance.",
+        "Optimized enterprise data migration pipelines, refining execution logic and reducing total data migration processing time by 30%.",
+        "Led the development of a real-time customer data ingestion platform, utilizing AWS Lambda and Apache Kafka topics to seamlessly process over 75% of total enterprise customer event workloads.",
+        "Integrated OpenSearch indexing for high-traffic API endpoints, offloading query patterns from primary databases to reduce database load by 40% and unblock downstream database integrations.",
       ],
       stack: [
         "AWS Lambda",
@@ -153,19 +153,23 @@ export const profile = {
         "MySQL",
         "CloudWatch",
         "GraphQL",
+        "Python",
+        "Kafka Connect",
+        "AWS Athena",
       ],
     },
     {
-      company: "GTN Technologies (Global Market Technologies)",
+      company: "GTN Technologies (Previously Global Market Technologies)",
       role: "Software Engineer",
-      period: "04/2021 – 02/2023",
+      period: "04/2021 - 02/2023",
       location: "Colombo, Sri Lanka",
+      type: "Full-time",
       keyHighlights: [
-        "Engineered market-price backend components for real-time and backlog extraction of high-frequency stock exchange data.",
-        "Designed data dissemination backend engines using Java, Spring Boot, WebSockets, and TCP Sockets serving thousands of concurrent enterprise clients.",
-        "Optimized text-search indexing speeds across database nodes by architecting wrappers around Apache Solr instances.",
-        "Built asynchronous decoupled message queues utilizing Apache Kafka, AWS SQS, and AWS SNS.",
-        "Integrated CI/CD delivery pipelines using Bitbucket, Bamboo, and Litestream.",
+        "Engineered real-time OHLC data extraction components to offloading high-concurrency traffic from legacy monolithic systems, reducing processing latency by 15%.",
+        "Architected real-time data dissemination engines using Java, Spring Boot, WebSockets, and TCP Sockets, streaming concurrent market feeds to enterprise trading clients while reducing overall data latency by 20%.",
+        "Engineered value-added price data pipelines for FinHub integration, enhancing market data extraction workflows and expanding real-time analytical capabilities for financial end-users.",
+        "Optimized database performance by wrapping Apache Solr instances to handle non-critical API read queries, accelerating text-search indexing speeds and reducing primary database load by 25%.",
+        "Mentored and guided software engineering interns in architecting an automated anomaly detection tool, elevating team engineering standards and accelerating internal diagnostic capabilities.",
       ],
       stack: [
         "Java",
@@ -182,13 +186,13 @@ export const profile = {
       ],
     },
     {
-      company: "GTN Technologies / Mubasher Technologies",
+      company: "GTN Technologies (Previously Global Market Technologies)",
       role: "Intern Software Engineer",
-      period: "06/2019 – 12/2019",
+      period: "06/2019 - 12/2019",
       location: "Colombo, Sri Lanka",
+      type: "Full-time",
       keyHighlights: [
-        "Engineered custom log analysis tools and anomaly detection utilities for financial price backend modules.",
-        "Executed load and stress testing across high-frequency backend financial data pipelines to protect platform stability under peak traffic.",
+        "Engineered automated log analysis and anomaly detection tool for real-time market price backends, streaming live health telemetry to internal monitoring dashboards to streamline incident response and maintain high availability.",
       ],
       stack: [
         "Java",
@@ -227,38 +231,6 @@ export const profile = {
         "Built with Next.js App Router for optimal SSR rendering speed and SEO performance.",
         "Modular UI design powered by Tailwind CSS and client-side reactive state management.",
         "Optimized asset delivery pipeline utilizing Firebase Storage CDN.",
-      ],
-    },
-    {
-      id: "air-canada-data-hub",
-      name: "Air Canada Cloud Data Hub & Microservices",
-      role: "Architect & Senior Serverless Engineer",
-      context: "Serverless Guru Client Project",
-      stack: [
-        "AWS Lambda",
-        "AWS Glue",
-        "Amazon S3",
-        "Serverless Framework",
-        "Apache Kafka",
-        "Amazon OpenSearch",
-        "PostgreSQL",
-        "CloudWatch",
-        "GraphQL",
-      ],
-      summary:
-        "Enterprise-grade cloud Data Hub and serverless microservices for Air Canada. Engineered real-time Apache Kafka event ingestion, AWS Glue ETL jobs, OpenSearch analytics, zero-downtime MySQL to PostgreSQL migration, and GraphQL enterprise bridges.",
-      keyFeatures: [
-        "Real-time event streaming pipelines consuming high-volume Apache Kafka topics into Amazon S3 storage buckets.",
-        "Automated AWS Glue ETL transformation jobs for enterprise data harmonization.",
-        "Amazon OpenSearch Service search indexing for sub-second analytical querying.",
-        "Zero-downtime database migration from MySQL to PostgreSQL preserving transactional integrity.",
-        "CloudWatch monitoring dashboards with automated anomaly alarms optimizing operational cloud expenditure.",
-        "GraphQL API bridge unifying disparate enterprise storage platforms like SharePoint.",
-      ],
-      architecturalHighlights: [
-        "Serverless-first architecture leveraging AWS Lambda for scalable event-driven processing.",
-        "Infrastructure as Code (IaC) via Serverless Framework for reliable multi-stage deployments.",
-        "Decoupled event-driven data flow protecting legacy upstream enterprise endpoints.",
       ],
     },
     {
