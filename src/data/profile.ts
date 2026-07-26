@@ -41,11 +41,7 @@ export const profile = {
   shortName: "Pinsara Weerasinghe",
   title: "Senior Software Engineer / Cloud Consultant",
   bio: "Specializing in AWS Serverless Architecture, Microservices, and High-Throughput Data Systems.",
-  targetRoles: [
-    "Associate Technical Lead",
-    "Software Engineer III",
-    "Senior Cloud Consultant",
-  ],
+  targetRoles: [],
   location: "Colombo, Sri Lanka",
   subtitle:
     "Specializing in AWS Serverless Architecture, Microservices, and High-Throughput Data Systems.",

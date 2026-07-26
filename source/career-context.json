@@ -4,11 +4,7 @@
         "title": "Senior Software Engineer / Cloud Consultant",
         "bio": "Specializing in AWS Serverless Architecture, Microservices, and High-Throughput Data Systems.",
         "about": "University of Moratuwa Computer Science and Engineering Honors graduate with 6 years of experience architecting high-performance backend systems across the Fintech and Aviation domains. Spent 2.5 years in Fintech delivering low-latency Java and Spring Boot backend infrastructure to optimize transactional data processing. Advanced into Aviation tech for 3.5 years, designing cloud-native microservices and enterprise data hubs on AWS utilizing the Serverless Framework and AWS CDK. Combines deep server-side logic mastery with automated cloud provisioning to deliver fault-tolerant, high-throughput microservice architectures. Seeking to leverage scalable system design and cloud engineering expertise as a Senior Backend Engineer.",
-        "targetRoles": [
-            "Associate Technical Lead",
-            "Software Engineer III",
-            "Senior Cloud Consultant"
-        ],
+        "targetRoles": [],
         "location": "Colombo, Sri Lanka",
         "education": {
             "institution": "University of Moratuwa",
