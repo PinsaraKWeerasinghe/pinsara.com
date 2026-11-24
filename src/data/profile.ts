@@ -39,16 +39,16 @@ export interface EducationItem {
 export const profile = {
   name: "Pinsara Weerasinghe",
   shortName: "Pinsara Weerasinghe",
-  title: "Senior Software Engineer / Cloud Consultant",
-  bio: "Specializing in AWS Serverless Architecture, Microservices, and High-Throughput Data Systems.",
+  title: "Senior Backend Engineer",
+  bio: "Building Python microservices on Kubernetes, AWS serverless architectures, and high-throughput data systems.",
   targetRoles: [],
   location: "Colombo, Sri Lanka",
   subtitle:
-    "Specializing in AWS Serverless Architecture, Microservices, and High-Throughput Data Systems.",
+    "Building Python microservices on Kubernetes, AWS serverless architectures, and high-throughput data systems.",
   summary:
-    "University of Moratuwa Computer Science and Engineering Honors graduate with 6 years of experience architecting high-performance backend systems across the Fintech and Aviation domains. Spent 2.5 years in Fintech delivering low-latency Java and Spring Boot backend infrastructure to optimize transactional data processing. Advanced into Aviation tech for 3.5 years, designing cloud-native microservices and enterprise data hubs on AWS utilizing the Serverless Framework and AWS CDK. Combines deep server-side logic mastery with automated cloud provisioning to deliver fault-tolerant, high-throughput microservice architectures. Seeking to leverage scalable system design and cloud engineering expertise as a Senior Backend Engineer.",
+    "University of Moratuwa Computer Science and Engineering Honors graduate with 6.5+ years of experience architecting high-performance backend systems across the Fintech, Aviation and Sports Tech domains. Spent 2.5 years in Fintech delivering low-latency Java and Spring Boot market data infrastructure, then 3.5 years in Aviation tech designing cloud-native microservices and enterprise data hubs on AWS with the Serverless Framework and AWS CDK. Now a Senior Backend Engineer at NeuroDrive, building Python microservices on Kubernetes (EKS) for an athlete neuro-performance platform. Combines deep server-side logic with infrastructure as code, event-driven architecture and cloud cost optimization to deliver fault-tolerant, high-throughput systems.",
   about:
-    "University of Moratuwa Computer Science and Engineering Honors graduate with 6 years of experience architecting high-performance backend systems across the Fintech and Aviation domains. Spent 2.5 years in Fintech delivering low-latency Java and Spring Boot backend infrastructure to optimize transactional data processing. Advanced into Aviation tech for 3.5 years, designing cloud-native microservices and enterprise data hubs on AWS utilizing the Serverless Framework and AWS CDK. Combines deep server-side logic mastery with automated cloud provisioning to deliver fault-tolerant, high-throughput microservice architectures. Seeking to leverage scalable system design and cloud engineering expertise as a Senior Backend Engineer.",
+    "University of Moratuwa Computer Science and Engineering Honors graduate with 6.5+ years of experience architecting high-performance backend systems across the Fintech, Aviation and Sports Tech domains. Spent 2.5 years in Fintech delivering low-latency Java and Spring Boot market data infrastructure, then 3.5 years in Aviation tech designing cloud-native microservices and enterprise data hubs on AWS with the Serverless Framework and AWS CDK. Now a Senior Backend Engineer at NeuroDrive, building Python microservices on Kubernetes (EKS) for an athlete neuro-performance platform. Combines deep server-side logic with infrastructure as code, event-driven architecture and cloud cost optimization to deliver fault-tolerant, high-throughput systems.",
   contact: {
     email: "pinsarakweerasinghe@gmail.com",
     phone: "+94 71 959 6692",
@@ -59,7 +59,7 @@ export const profile = {
     githubHref: "https://github.com/kaushalpkw",
     linkedin: "pinsara",
     linkedinHref: "https://linkedin.com/in/pinsara",
-    resumePdfHref: "/Resume/Resume_General_160670H.pdf",
+    resumePdfHref: "/Resume/Resume_Pinsara_Weerasinghe.pdf",
   },
   education: [
     {
@@ -87,6 +87,7 @@ export const profile = {
       "Dart",
     ],
     cloudAndServerless: [
+      "AWS EKS",
       "AWS Lambda",
       "AWS Glue",
       "Amazon S3",
@@ -98,6 +99,7 @@ export const profile = {
       "Serverless Framework",
     ],
     frameworks: [
+      "FastAPI",
       "Express.js",
       "NestJS",
       "Spring Boot",
@@ -119,13 +121,50 @@ export const profile = {
       "Bitbucket",
       "Bamboo",
       "Litestream",
+      "Kubernetes",
+      "Terraform",
+      "Helm",
+      "ArgoCD",
+      "Grafana",
+      "Prometheus",
+      "Zitadel (OAuth2/OIDC)",
     ],
   },
   workExperiences: [
     {
+      company: "NeuroDrive Inc.",
+      role: "Senior Backend Engineer",
+      period: "08/2026 - Present",
+      type: "Remote / Full-time",
+      keyHighlights: [
+        "Architected an eye-tracking analysis pipeline in Python and FastAPI, transforming raw Pupil Labs Neon gaze data into versioned saccade and smooth-pursuit scores that measure how athletes see, process, react and execute.",
+        "Led the migration to Zitadel for identity and sign-in, introducing per-person authentication, role-based access control and service-to-service tokens across 5 microservices.",
+        "Managed AWS EKS infrastructure as code with Terraform, Helm and ArgoCD, including GPU node groups, a VPN and Grafana/Prometheus monitoring.",
+        "Built a React console that lets performance consultants review telemetry and scoring results before they are released to the athlete-facing mobile app.",
+        "Delivered features through a spec-first, AI-assisted engineering workflow using Claude Code, Jira and Bitbucket, backed by pytest test coverage.",
+      ],
+      stack: [
+        "Python",
+        "FastAPI",
+        "AWS EKS",
+        "Kubernetes",
+        "Terraform",
+        "Helm",
+        "ArgoCD",
+        "Zitadel",
+        "React",
+        "Grafana",
+        "Prometheus",
+        "pytest",
+        "Claude Code",
+        "Bitbucket",
+        "Jira",
+      ],
+    },
+    {
       company: "Serverless Guru",
       role: "Senior Software Engineer / Cloud Consultant",
-      period: "02/2023 - Present",
+      period: "02/2023 - 08/2026",
       type: "Remote / Full-time",
       clientProject: "Air Canada Cloud Data Hub & Microservices",
       keyHighlights: [

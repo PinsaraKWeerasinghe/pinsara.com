@@ -15,14 +15,14 @@ const heading = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Pinsara Weerasinghe — Software Engineer & Associate Tech Lead",
+  title: "Pinsara Weerasinghe — Senior Backend Engineer",
   description:
-    "Senior Software Engineer, Associate Technical Lead and Cloud Consultant specializing in AWS, Serverless, and high-throughput data pipelines.",
+    "Senior Backend Engineer building Python microservices on Kubernetes, AWS serverless architectures, and high-throughput data pipelines.",
   metadataBase: new URL("https://pinsara.com"),
   openGraph: {
     title: "Pinsara Weerasinghe",
     description:
-      "Senior Software Engineer & Cloud Consultant specializing in AWS, Serverless, and high-throughput data pipelines.",
+      "Senior Backend Engineer building Python microservices on Kubernetes, AWS serverless architectures, and high-throughput data pipelines.",
     type: "website",
     url: "https://pinsara.com",
   },
