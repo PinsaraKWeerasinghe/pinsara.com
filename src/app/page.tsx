@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowUpRight, FileDown, Mail, MapPin, Phone } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { ProjectModal } from "@/components/ProjectModal";
@@ -37,11 +37,11 @@ function Pill({ children }: { children: ReactNode }) {
   );
 }
 
-/** Section wrapper. On small screens the heading sticks to the top while you scroll the section. */
+/** Section wrapper. Below 1024px the heading shows above the section; on desktop it is visually hidden. */
 function Section({ id, label, children }: { id: string; label: string; children: ReactNode }) {
   return (
     <section id={id} aria-label={label} className="mb-20 scroll-mt-16 md:mb-28 lg:mb-36 lg:scroll-mt-24">
-      <div className="sticky top-0 z-20 -mx-6 mb-6 bg-background/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only">
+      <div className="mb-6 lg:sr-only">
         <h2 className="text-sm font-bold uppercase tracking-widest text-foreground">{label}</h2>
       </div>
       {children}
@@ -53,6 +53,7 @@ export default function Home() {
   const { contact, education, technicalProficiency, workExperiences, featuredProjects, leadershipAndVolunteering } =
     profile;
   const [active, setActive] = useState<string>("about");
+  const mobileNavRef = useRef<HTMLUListElement>(null);
   const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
 
   useEffect(() => {
@@ -71,6 +72,14 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  // Keep the highlighted link visible in the top bar when it scrolls sideways on small phones.
+  useEffect(() => {
+    const list = mobileNavRef.current;
+    const link = list?.querySelector<HTMLElement>(`[data-section="${active}"]`);
+    if (!list || !link) return;
+    list.scrollTo({ left: link.offsetLeft - list.clientWidth / 2 + link.offsetWidth / 2, behavior: "smooth" });
+  }, [active]);
+
   const skillGroups = [
     { title: "Languages", items: technicalProficiency.coreLanguages },
     { title: "Cloud & Serverless", items: technicalProficiency.cloudAndServerless },
@@ -82,6 +91,35 @@ export default function Home() {
   return (
     <div className="relative">
       <Spotlight />
+
+      {/* Top section bar for screens below 1024px (desktop uses the sidebar nav). */}
+      <nav
+        aria-label="Sections"
+        className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur lg:hidden"
+      >
+        <ul
+          ref={mobileNavRef}
+          className="mx-auto flex max-w-screen-xl gap-1 overflow-x-auto px-4 py-2 [scrollbar-width:none] md:px-10 [&::-webkit-scrollbar]:hidden"
+        >
+          {sections.map(({ id, label }) => {
+            const isActive = active === id;
+            return (
+              <li key={id} className="shrink-0">
+                <a
+                  href={`#${id}`}
+                  data-section={id}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`block rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                    isActive ? "bg-primary-soft text-primary" : "text-text-subtle hover:text-slate-200"
+                  }`}
+                >
+                  {label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
       <a
         href="#content"
         className="absolute left-0 top-0 z-50 -translate-y-full rounded bg-primary px-4 py-2 text-sm font-bold text-primary-foreground focus:translate-y-3 focus:translate-x-3"
