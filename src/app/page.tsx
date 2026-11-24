@@ -1,19 +1,12 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { ContactItem } from "@/components/ContactItem";
-import { ProfileAvatar } from "@/components/ProfileAvatar";
-import { SiteNav } from "@/components/SiteNav";
-import { SkillCategory } from "@/components/SkillCategory";
-import { SectionTitle } from "@/components/SectionTitle";
-import { ExperienceTimeline } from "@/components/ExperienceTimeline";
-import { ProjectCard } from "@/components/ProjectCard";
+import Image from "next/image";
+import { useEffect, useState, type ReactNode } from "react";
+import { ArrowUpRight, FileDown, Mail, MapPin, Phone } from "lucide-react";
+import { FadeIn } from "@/components/FadeIn";
 import { ProjectModal } from "@/components/ProjectModal";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { profile, ProjectDetail } from "@/data/profile";
-import { FileDown, MapPin, Sparkles, Award } from "lucide-react";
+import { Spotlight } from "@/components/Spotlight";
+import { profile, type ProjectDetail } from "@/data/profile";
 
 const GithubIcon = (props: React.ComponentProps<"svg">) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -21,292 +14,360 @@ const GithubIcon = (props: React.ComponentProps<"svg">) => (
   </svg>
 );
 
+const LinkedinIcon = (props: React.ComponentProps<"svg">) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.75a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9z" />
+  </svg>
+);
+
+const sections = [
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "education", label: "Education" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+] as const;
+
+function Pill({ children }: { children: ReactNode }) {
+  return (
+    <li className="rounded-full bg-primary-soft px-3 py-1 text-xs font-medium leading-5 text-primary">
+      {children}
+    </li>
+  );
+}
+
+/** Section wrapper. On small screens the heading sticks to the top while you scroll the section. */
+function Section({ id, label, children }: { id: string; label: string; children: ReactNode }) {
+  return (
+    <section id={id} aria-label={label} className="mb-20 scroll-mt-16 md:mb-28 lg:mb-36 lg:scroll-mt-24">
+      <div className="sticky top-0 z-20 -mx-6 mb-6 bg-background/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only">
+        <h2 className="text-sm font-bold uppercase tracking-widest text-foreground">{label}</h2>
+      </div>
+      {children}
+    </section>
+  );
+}
+
 export default function Home() {
-  const { contact, education, technicalProficiency, workExperiences, featuredProjects, leadershipAndVolunteering } = profile;
-  const [activeSection, setActiveSection] = useState("about");
-  const [scrollProgress, setScrollProgress] = useState(0);
-  
-  // Selected project for modal popups
+  const { contact, education, technicalProficiency, workExperiences, featuredProjects, leadershipAndVolunteering } =
+    profile;
+  const [active, setActive] = useState<string>("about");
   const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const avatarRef = useRef<HTMLDivElement>(null);
-
-  const openProjectModal = (proj: ProjectDetail) => {
-    setSelectedProject(proj);
-    setIsModalOpen(true);
-  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!avatarRef.current) return;
-      const rect = avatarRef.current.getBoundingClientRect();
-      const navbarHeight = 54;
-      const triggerStart = navbarHeight;
-      const progress = (triggerStart - rect.top) / rect.height;
-      const clampedProgress = Math.max(0, Math.min(1, progress));
-      setScrollProgress(clampedProgress);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const sections = document.querySelectorAll("section[id], div[id='contact']");
-    
-    const observerOptions = {
-      root: null,
-      rootMargin: "-25% 0px -55% 0px",
-      threshold: 0.1,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
-  }, []);
+  const skillGroups = [
+    { title: "Languages", items: technicalProficiency.coreLanguages },
+    { title: "Cloud & Serverless", items: technicalProficiency.cloudAndServerless },
+    { title: "Frameworks", items: technicalProficiency.frameworks },
+    { title: "Data & Streaming", items: technicalProficiency.databasesAndStreaming },
+    { title: "DevOps & Tooling", items: technicalProficiency.devopsAndTools },
+  ];
 
   return (
-    <div className="min-h-screen bg-bg relative transition-colors duration-300">
-      {/* Background spotlights */}
-      <div 
-        className="pointer-events-none absolute left-[10%] top-[5%] h-[500px] w-[500px] rounded-full bg-primary-soft opacity-30 blur-[130px]" 
-        aria-hidden 
-      />
-      <div 
-        className="pointer-events-none absolute right-[10%] top-[40%] h-[400px] w-[400px] rounded-full bg-accent-soft opacity-20 blur-[110px]" 
-        aria-hidden 
-      />
+    <div className="relative">
+      <Spotlight />
+      <a
+        href="#content"
+        className="absolute left-0 top-0 z-50 -translate-y-full rounded bg-primary px-4 py-2 text-sm font-bold text-primary-foreground focus:translate-y-3 focus:translate-x-3"
+      >
+        Skip to content
+      </a>
 
-      <SiteNav activeSection={activeSection} scrollProgress={scrollProgress} />
-
-      {/* Hero Section */}
-      <div className="flex min-h-[calc(100vh-64px)] flex-col justify-center items-center w-full relative py-12">
-        {/* Profile Avatar resting on line */}
-        <div ref={avatarRef} className="w-full flex justify-center relative pb-[1px]">
-          <ProfileAvatar alt={profile.name} initials="PW" />
-          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
-        </div>
-
-        {/* Info content */}
-        <header className="flex flex-col items-center text-center pt-8 pb-8 px-6 max-w-3xl">
-          <h1 className="pb-2 text-4xl font-extrabold tracking-tight sm:text-6xl text-foreground font-sans">
-            {profile.name}
-          </h1>
-          
-          <h2 className="mt-2 text-sm font-semibold tracking-wide text-foreground/70 sm:text-base max-w-lg">
-            {profile.title}
-          </h2>
-
-          {/* Target Roles */}
-          <div className="mt-3 flex flex-wrap justify-center gap-1.5">
-            {profile.targetRoles.map((role) => (
-              <Badge key={role} variant="outline" className="text-[10px] font-bold bg-primary-soft/30 text-primary border-primary/20">
-                {role}
-              </Badge>
-            ))}
-          </div>
-
-          <p className="mt-4 text-xs sm:text-sm text-foreground/60 leading-relaxed max-w-xl font-medium tracking-wide">
-            {profile.subtitle}
-          </p>
-
-          {/* Action Links */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Button className="h-11 rounded-xl px-6 shadow-md font-semibold text-xs sm:text-sm" asChild>
-              <a href={contact.resumePdfHref} download target="_blank" rel="noreferrer">
-                <FileDown className="size-4 mr-2" />
-                Download Resume
-              </a>
-            </Button>
-            
-            <a
-              href={contact.githubHref}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border/50 bg-secondary/40 text-xs font-semibold text-foreground/80 hover:bg-secondary hover:text-foreground transition-all"
-              aria-label="GitHub"
-            >
-              <GithubIcon className="size-4" />
-              github.com/{contact.github}
-            </a>
-
-            <a
-              href={contact.linkedinHref}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border/50 bg-secondary/40 text-xs font-semibold text-foreground/80 hover:bg-secondary hover:text-foreground transition-all"
-              aria-label="LinkedIn"
-            >
-              <svg className="size-4 text-sky-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.75a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9z"/>
-              </svg>
-              in/{contact.linkedin}
-            </a>
-          </div>
-        </header>
-      </div>
-
-      {/* Main Content Sections */}
-      <div className="mx-auto max-w-4xl px-6 pb-24 space-y-24">
-
-        {/* About Section */}
-        <section id="about" className="scroll-mt-28 space-y-6" aria-label="About me">
-          <SectionTitle id="about-title">About</SectionTitle>
-          <Card className="glow-card glassmorphism border-none shadow-sm">
-            <CardContent className="p-6 sm:p-8 md:p-10 space-y-4">
-              <p className="text-sm md:text-base leading-relaxed text-foreground/80 font-normal">
-                {profile.about}
-              </p>
-              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-semibold text-muted-foreground">
-                <span className="flex items-center gap-1.5 text-foreground/80">
-                  <MapPin className="size-4 text-primary" /> {profile.location}
-                </span>
+      <div className="relative z-10 mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
+        <div className="lg:flex lg:justify-between lg:gap-4">
+          {/* ───────── Left: sticky intro + nav ───────── */}
+          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[46%] lg:flex-col lg:justify-between lg:py-24">
+            <div>
+              <div className="relative mb-6 size-20 overflow-hidden rounded-full bg-slate-800 ring-2 ring-primary/30 sm:size-24">
+                <Image
+                  src="/profile-photo.png"
+                  alt={profile.name}
+                  fill
+                  priority
+                  sizes="96px"
+                  className="object-cover object-top"
+                />
               </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Experience Section with Interactive Timeline */}
-        <section id="experience" className="scroll-mt-28 space-y-6" aria-labelledby="experience-heading">
-          <SectionTitle id="experience-heading">Experience</SectionTitle>
-          <ExperienceTimeline
-            experiences={workExperiences}
-          />
-        </section>
-
-        {/* Featured Projects Section */}
-        <section id="projects" className="scroll-mt-28 space-y-6" aria-labelledby="projects-heading">
-          <SectionTitle id="projects-heading">Featured Projects</SectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredProjects.map((proj) => (
-              <ProjectCard
-                key={proj.id}
-                project={proj}
-                onOpenDetail={openProjectModal}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Education Section */}
-        <section id="education" className="scroll-mt-28 space-y-6" aria-labelledby="education-heading">
-          <SectionTitle id="education-heading">Education</SectionTitle>
-          <div className="space-y-6">
-            {education.map((edu) => (
-              <Card key={edu.institution} className="glow-card glassmorphism border-none shadow-sm">
-                <CardHeader className="p-6 sm:p-8 md:p-10">
-                  <div className="flex justify-between items-start gap-4">
-                    <div>
-                      <CardTitle className="text-base font-bold text-primary">{edu.institution}</CardTitle>
-                      <CardDescription className="text-sm font-semibold text-foreground/95 mt-1">
-                        {edu.degree}
-                      </CardDescription>
-                    </div>
-                    <span className="text-[10px] font-semibold text-muted-foreground whitespace-nowrap bg-secondary px-2.5 py-1 rounded-full border border-border/40">
-                      {edu.period}
-                    </span>
-                  </div>
-                  {edu.detail && (
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      {edu.detail}
-                    </p>
-                  )}
-                  {edu.note && (
-                    <p className="pt-2 text-[11px] font-bold text-accent uppercase tracking-wider flex items-center gap-1">
-                      <Sparkles className="size-3" /> {edu.note}
-                    </p>
-                  )}
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Technical Skills Section */}
-        <section id="skills" className="scroll-mt-28 space-y-6" aria-labelledby="skills-heading">
-          <SectionTitle id="skills-heading">Technical Proficiency</SectionTitle>
-          <Card className="glow-card glassmorphism border-none shadow-sm">
-            <CardContent className="p-6 sm:p-8 md:p-10 space-y-8">
-              <SkillCategory title="Core Languages" items={technicalProficiency.coreLanguages} />
-              <SkillCategory title="Cloud & Serverless (AWS)" items={technicalProficiency.cloudAndServerless} />
-              <SkillCategory title="Frameworks & Libraries" items={technicalProficiency.frameworks} />
-              <SkillCategory title="Databases & Event Streaming" items={technicalProficiency.databasesAndStreaming} />
-              <SkillCategory title="DevOps & Tooling" items={technicalProficiency.devopsAndTools} />
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Leadership & Volunteering Section */}
-        <section id="leadership" className="scroll-mt-28 space-y-6" aria-labelledby="leadership-heading">
-          <SectionTitle id="leadership-heading">Leadership & Volunteering</SectionTitle>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {leadershipAndVolunteering.map((item) => (
-              <Card key={item.event} className="glow-card glassmorphism border-none shadow-sm">
-                <CardHeader className="p-6 space-y-2">
-                  <div className="flex items-center gap-2 text-accent text-xs font-bold">
-                    <Award className="size-4" />
-                    <span>{item.role}</span>
-                  </div>
-                  <CardTitle className="text-base font-extrabold text-foreground">
-                    {item.event}
-                  </CardTitle>
-                  <p className="text-xs font-medium text-muted-foreground">
-                    {item.organization}
-                  </p>
-                  <p className="text-xs text-foreground/75 leading-relaxed pt-2 border-t border-border/30">
-                    {item.details}
-                  </p>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="scroll-mt-28 space-y-6" aria-labelledby="contact-heading">
-          <SectionTitle id="contact-heading">Contact & Connect</SectionTitle>
-          <Card className="glow-card glassmorphism border-none shadow-sm">
-            <CardContent className="p-6 sm:p-8 md:p-10">
-              <p className="text-sm leading-relaxed text-foreground/75 mb-6">
-                I am open to senior software engineering, technical lead, and cloud consulting roles.
+              <h1 className="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
+                {profile.name}
+              </h1>
+              <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">{profile.title}</h2>
+              <p className="mt-4 max-w-xs leading-normal text-muted-foreground">{profile.subtitle}</p>
+              <p className="mt-3 flex items-center gap-1.5 text-sm text-text-subtle">
+                <MapPin className="size-4" aria-hidden /> {profile.location}
               </p>
-              <nav className="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Contact information">
-                <ContactItem icon="mail" label="Email" value={contact.email} href={`mailto:${contact.email}`} />
-                <ContactItem icon="phone" label="Phone" value={contact.phone} href={contact.phoneHref} />
-                <ContactItem icon="globe" label="Location" value={contact.location} />
-                <ContactItem icon="linkedin" label="LinkedIn" value={`/in/${contact.linkedin}`} href={contact.linkedinHref} />
+
+              <nav className="hidden lg:block" aria-label="In-page navigation">
+                <ul className="mt-14 w-max">
+                  {sections.map(({ id, label }) => {
+                    const isActive = active === id;
+                    return (
+                      <li key={id}>
+                        <a href={`#${id}`} className="group flex items-center py-3" aria-current={isActive ? "true" : undefined}>
+                          <span
+                            className={`mr-4 h-px transition-all motion-reduce:transition-none group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 ${
+                              isActive ? "w-16 bg-slate-200" : "w-8 bg-slate-600"
+                            }`}
+                          />
+                          <span
+                            className={`text-xs font-bold uppercase tracking-widest group-hover:text-slate-200 group-focus-visible:text-slate-200 ${
+                              isActive ? "text-slate-200" : "text-text-subtle"
+                            }`}
+                          >
+                            {label}
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
               </nav>
-            </CardContent>
-          </Card>
-        </section>
+            </div>
 
-        <footer className="pt-8 text-center text-[11px] text-muted-foreground/70">
-          <p>© {new Date().getFullYear()} Pinsara Weerasinghe. Built with Next.js & Tailwind CSS.</p>
-        </footer>
+            <div className="mt-8 flex flex-wrap items-center gap-5">
+              <a
+                href={contact.resumePdfHref}
+                download
+                className="inline-flex items-center gap-2 rounded-md border border-primary/40 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary-soft"
+              >
+                <FileDown className="size-4" aria-hidden /> Download resume
+              </a>
+              <ul className="flex items-center gap-5" aria-label="Social media">
+                <li>
+                  <a href={contact.githubHref} target="_blank" rel="noreferrer" className="block text-muted-foreground hover:text-slate-200" aria-label="GitHub (opens in a new tab)">
+                    <GithubIcon className="size-6" />
+                  </a>
+                </li>
+                <li>
+                  <a href={contact.linkedinHref} target="_blank" rel="noreferrer" className="block text-muted-foreground hover:text-slate-200" aria-label="LinkedIn (opens in a new tab)">
+                    <LinkedinIcon className="size-6" />
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${contact.email}`} className="block text-muted-foreground hover:text-slate-200" aria-label="Email">
+                    <Mail className="size-6" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </header>
 
+          {/* ───────── Right: scrolling content ───────── */}
+          <main id="content" className="pt-20 lg:w-[54%] lg:py-24">
+            <Section id="about" label="About">
+              <FadeIn>
+                <p className="text-muted-foreground">{profile.about}</p>
+              </FadeIn>
+            </Section>
+
+            <Section id="experience" label="Experience">
+              <ol className="group/list">
+                {workExperiences.map((exp, i) => (
+                  <li key={`${exp.company}-${exp.role}`} className="mb-12">
+                    <FadeIn delay={Math.min(i, 3) * 0.05}>
+                      <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+                        <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg" />
+                        <header className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-subtle sm:col-span-2">
+                          {exp.period.replace(" - ", " — ")}
+                        </header>
+                        <div className="z-10 sm:col-span-6">
+                          <h3 className="font-medium leading-snug text-slate-200">
+                            <span className="group-hover:text-primary">{exp.role}</span>
+                            <span className="text-muted-foreground"> · </span>
+                            <span className="group-hover:text-primary">{exp.company}</span>
+                          </h3>
+                          <p className="mt-1 text-xs text-text-subtle">
+                            {[exp.type, exp.location, exp.clientProject && `Client: ${exp.clientProject}`]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </p>
+                          <ul className="mt-3 space-y-2 text-sm leading-normal text-muted-foreground">
+                            {exp.keyHighlights.map((h) => (
+                              <li key={h} className="relative pl-4 before:absolute before:left-0 before:top-[0.6em] before:size-1 before:rounded-full before:bg-primary/60">
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Technologies used">
+                            {exp.stack.map((t) => (
+                              <Pill key={t}>{t}</Pill>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </FadeIn>
+                  </li>
+                ))}
+              </ol>
+              <a
+                href={contact.resumePdfHref}
+                download
+                className="group inline-flex items-center font-semibold leading-tight text-slate-200"
+              >
+                <span className="border-b border-transparent pb-px transition group-hover:border-primary">View full résumé</span>
+                <ArrowUpRight className="ml-1 size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+              </a>
+            </Section>
+
+            <Section id="projects" label="Projects">
+              <ul className="group/list">
+                {featuredProjects.map((proj, i) => (
+                  <li key={proj.id} className="mb-12">
+                    <FadeIn delay={Math.min(i, 3) * 0.05}>
+                      <div className="group relative grid gap-4 pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+                        <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg" />
+                        <div className="z-10 sm:order-2 sm:col-span-6">
+                          <h3>
+                            <button
+                              type="button"
+                              onClick={() => setSelectedProject(proj)}
+                              className="group/link inline-flex items-baseline text-left font-medium leading-tight text-slate-200 hover:text-primary focus-visible:text-primary"
+                            >
+                              <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block" />
+                              <span>{proj.name}</span>
+                              <ArrowUpRight className="ml-1 size-4 shrink-0 translate-y-px transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" aria-hidden />
+                            </button>
+                          </h3>
+                          {(proj.role || proj.context) && (
+                            <p className="mt-1 text-xs text-text-subtle">{[proj.role, proj.context].filter(Boolean).join(" · ")}</p>
+                          )}
+                          <p className="mt-2 text-sm leading-normal text-muted-foreground">{proj.summary}</p>
+                          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Technologies used">
+                            {proj.stack.map((t) => (
+                              <Pill key={t}>{t}</Pill>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="z-10 mt-1 text-xs font-semibold uppercase tracking-wide text-text-subtle sm:order-1 sm:col-span-2">
+                          {proj.url ? (
+                            <a href={proj.url} target="_blank" rel="noreferrer" className="relative z-20 hover:text-primary">
+                              Live site ↗
+                            </a>
+                          ) : (
+                            "Case study"
+                          )}
+                        </div>
+                      </div>
+                    </FadeIn>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+
+            <Section id="education" label="Education">
+              <ol className="space-y-8">
+                {education.map((edu) => (
+                  <li key={edu.institution}>
+                    <FadeIn className="grid sm:grid-cols-8 sm:gap-8 md:gap-4">
+                      <p className="mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-subtle sm:col-span-2">
+                        {edu.period.replace(" – ", " — ")}
+                      </p>
+                      <div className="sm:col-span-6">
+                        <h3 className="font-medium leading-snug text-slate-200">{edu.degree}</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">{edu.institution}</p>
+                        {edu.note && <p className="mt-2 text-sm text-primary">{edu.note}</p>}
+                        {edu.detail && <p className="mt-1 text-sm text-text-subtle">{edu.detail}</p>}
+                      </div>
+                    </FadeIn>
+                  </li>
+                ))}
+              </ol>
+            </Section>
+
+            <Section id="skills" label="Skills">
+              <div className="space-y-6">
+                {skillGroups.map((g) => (
+                  <FadeIn key={g.title} className="grid sm:grid-cols-8 sm:gap-8 md:gap-4">
+                    <h3 className="mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-subtle sm:col-span-2">
+                      {g.title}
+                    </h3>
+                    <ul className="flex flex-wrap gap-2 sm:col-span-6">
+                      {g.items.map((s) => (
+                        <Pill key={s}>{s}</Pill>
+                      ))}
+                    </ul>
+                  </FadeIn>
+                ))}
+              </div>
+
+              <h3 className="mb-6 mt-16 text-xs font-bold uppercase tracking-widest text-slate-200">
+                Leadership &amp; volunteering
+              </h3>
+              <ul className="space-y-6">
+                {leadershipAndVolunteering.map((item) => (
+                  <li key={item.event}>
+                    <FadeIn>
+                      <p className="font-medium text-slate-200">
+                        {item.event} <span className="text-muted-foreground">· {item.role}</span>
+                      </p>
+                      <p className="mt-1 text-xs text-text-subtle">{item.organization}</p>
+                      <p className="mt-2 text-sm text-muted-foreground">{item.details}</p>
+                    </FadeIn>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+
+            <Section id="contact" label="Contact">
+              <FadeIn>
+                <p className="text-muted-foreground">
+                  I am open to senior software engineering, technical lead, and cloud consulting roles. The best way to
+                  reach me is by email.
+                </p>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="mt-6 inline-flex items-center gap-2 rounded-md border border-primary/40 px-5 py-3 text-sm font-medium text-primary transition-colors hover:bg-primary-soft"
+                >
+                  <Mail className="size-4" aria-hidden /> Say hello
+                </a>
+                <ul className="mt-8 space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-3">
+                    <Mail className="size-4 text-text-subtle" aria-hidden />
+                    <a href={`mailto:${contact.email}`} className="hover:text-primary">{contact.email}</a>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Phone className="size-4 text-text-subtle" aria-hidden />
+                    <a href={contact.phoneHref} className="hover:text-primary">{contact.phone}</a>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <LinkedinIcon className="size-4 text-text-subtle" />
+                    <a href={contact.linkedinHref} target="_blank" rel="noreferrer" className="hover:text-primary">
+                      linkedin.com/in/{contact.linkedin}
+                    </a>
+                  </li>
+                </ul>
+              </FadeIn>
+            </Section>
+
+            <footer className="max-w-md pb-16 text-sm text-text-subtle sm:pb-0">
+              <p>
+                Built with Next.js, Tailwind CSS and Motion. © {new Date().getFullYear()} {profile.name}.
+              </p>
+            </footer>
+          </main>
+        </div>
       </div>
 
-      {/* Global Project Modal Popup */}
       <ProjectModal
         project={selectedProject}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={selectedProject !== null}
+        onClose={() => setSelectedProject(null)}
       />
     </div>
   );
