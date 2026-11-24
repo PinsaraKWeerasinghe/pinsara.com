@@ -94,21 +94,25 @@ export default function Home() {
           {/* ───────── Left: sticky intro + nav ───────── */}
           <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[46%] lg:flex-col lg:justify-between lg:py-24">
             <div>
-              <div className="relative mb-6 size-20 overflow-hidden rounded-full bg-slate-800 ring-2 ring-primary/30 sm:size-24">
-                <Image
-                  src="/profile-photo.png"
-                  alt={profile.name}
-                  fill
-                  priority
-                  sizes="96px"
-                  className="object-cover object-top"
-                />
+              <div className="md:flex md:items-center md:gap-6 lg:block">
+                <div className="relative mb-6 size-20 shrink-0 overflow-hidden rounded-full bg-slate-800 ring-2 ring-primary/30 sm:size-24 md:mb-0 lg:mb-6">
+                  <Image
+                    src="/profile-photo.png"
+                    alt={profile.name}
+                    fill
+                    priority
+                    sizes="96px"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div>
+                  <h1 className="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
+                    {profile.name}
+                  </h1>
+                  <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">{profile.title}</h2>
+                </div>
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
-                {profile.name}
-              </h1>
-              <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">{profile.title}</h2>
-              <p className="mt-4 max-w-xs leading-normal text-muted-foreground">{profile.subtitle}</p>
+              <p className="mt-4 max-w-xs leading-normal text-muted-foreground md:max-w-lg lg:max-w-xs">{profile.subtitle}</p>
               <p className="mt-3 flex items-center gap-1.5 text-sm text-text-subtle">
                 <MapPin className="size-4" aria-hidden /> {profile.location}
               </p>
@@ -169,7 +173,7 @@ export default function Home() {
           </header>
 
           {/* ───────── Right: scrolling content ───────── */}
-          <main id="content" className="pt-20 lg:w-[54%] lg:py-24">
+          <main id="content" className="pt-16 md:pt-10 lg:w-[54%] lg:py-24">
             <Section id="about" label="About">
               <FadeIn>
                 <p className="text-muted-foreground">{profile.about}</p>
@@ -357,7 +361,7 @@ export default function Home() {
 
             <footer className="max-w-md pb-16 text-sm text-text-subtle sm:pb-0">
               <p>
-                Built with Next.js, Tailwind CSS and Motion. © {new Date().getFullYear()} {profile.name}.
+                © {new Date().getFullYear()} {profile.name}.
               </p>
             </footer>
           </main>
